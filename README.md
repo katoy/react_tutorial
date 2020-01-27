@@ -1,5 +1,7 @@
 # Content
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/katoy/react_tutorial.svg)](https://greenkeeper.io/)
+
 ## See
 
 - <https://ja.reactjs.org/tutorial/tutorial.html>
