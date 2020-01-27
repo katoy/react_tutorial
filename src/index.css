@@ -10,6 +10,7 @@ ol, ul {
 .board-row:after {
 	clear: both;
 	content: "";
+	width: 120px;
 	display: table;
 }
 
@@ -32,6 +33,10 @@ ol, ul {
 	width: 34px;
 }
 
+.square.mark {
+	color: #F00
+}
+
 .square:focus {
 	outline: none;
 }
@@ -47,4 +52,16 @@ ol, ul {
 
 .game-info {
 	margin-left: 20px;
+}
+
+.history-button {
+	min-width: 40px;
+	border-radius: 8px;
+	padding: 4px;
+	color: #fff;
+	background: #639;
+}
+
+.history-button:hover {
+	background: rgb(230, 61, 61);
 }
