@@ -3,8 +3,10 @@ import "./index.css";
 import React from "react";
 import ReactDOM from "react-dom";
 
-const DIM = 4;
+const DIM = 3; // ボードの１辺の数
+const LEN = 3; // LEN 目並べ
 const MARKS = { "1": "O", "-1": "X" };
+const GAME_LINES = check_lines();
 
 function Square(props) {
   let className = "square";
@@ -179,8 +181,7 @@ class Game extends React.Component {
 ReactDOM.render(<Game />, document.getElementById("root"));
 
 function calculateWinner(squares) {
-  const lines = check_lines();
-  for (let line of lines) {
+  for (let line of GAME_LINES) {
     let winer = squares[line[0]];
     if (!winer) {
       continue;
@@ -200,26 +201,23 @@ function calculateWinner(squares) {
 }
 
 function check_lines() {
-  let lines = [];
+  let tmp = [];
   for (let i = 0; i < DIM; i++) {
-    // 横
-    let ls = [[], []];
     for (let j = 0; j < DIM; j++) {
-      ls[0].push(i * DIM + j);
-      ls[1].push(i + DIM * j);
+      tmp.push(Array.from(Array(LEN).keys(), x => [i + x, j]));
+      tmp.push(Array.from(Array(LEN).keys(), x => [i, j + x]));
+      tmp.push(Array.from(Array(LEN).keys(), x => [i + x, j + x]));
+      tmp.push(Array.from(Array(LEN).keys(), x => [i - x, j + x]));
     }
-    lines.push(ls[0].slice(0, DIM)); // 横
-    lines.push(ls[1].slice(0, DIM)); // 縦
   }
 
-  // 対角線
-  let digs = [[], []];
-  for (let i = 0; i < DIM; i++) {
-    digs[0].push(i * DIM + i);
-    digs[1].push((i + 1) * DIM - i - 1);
-  }
-  lines.push(digs[0]);
-  lines.push(digs[1]);
+  let lines = [];
+  tmp.forEach(v => {
+    let nums = v.flat();
+    if (0 <= Math.min(...nums) && Math.max(...nums) < DIM) {
+      lines.push(v.map(v => v[0] * DIM + v[1]));
+    }
+  });
   return lines;
 }
 
